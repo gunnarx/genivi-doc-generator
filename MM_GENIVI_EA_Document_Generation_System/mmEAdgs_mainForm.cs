@@ -10,7 +10,7 @@
  *
  * Software distributed under the License is distributed on an "AS IS" basis,
  * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
- * for the specific language governing rights and limitations under the
+ * for the specific language governing rights and limitations under the licence
  *
  * ***** END LICENSE BLOCK *****/
 using System;
@@ -155,7 +155,26 @@ namespace MM_GENIVI_EA_Document_Generation_System
 
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            About abx = new About();
+            abx.Show();
+        }
 
+        private void saveProjectFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // under development
+            MessageBox.Show("Function under development", "Development in progress", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+        }
+
+        private void loadProjectFileToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // under development
+            MessageBox.Show("Function under development", "Development in progress", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+        }
+
+        private void manualToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // under development
+            MessageBox.Show("Function under development", "Development in progress", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
     }
 }

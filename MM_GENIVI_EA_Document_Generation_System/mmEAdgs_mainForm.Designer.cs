@@ -51,6 +51,9 @@ namespace MM_GENIVI_EA_Document_Generation_System
             this.statusStrip = new System.Windows.Forms.StatusStrip();
             this.toolStripStatusLabel = new System.Windows.Forms.ToolStripStatusLabel();
             this.genProgress = new System.Windows.Forms.ToolStripProgressBar();
+            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveProjectFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadProjectFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer)).BeginInit();
             this.splitContainer.Panel1.SuspendLayout();
             this.splitContainer.SuspendLayout();
@@ -77,7 +80,8 @@ namespace MM_GENIVI_EA_Document_Generation_System
             // menuStrip1
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.helpToolStripMenuItem});
+            this.helpToolStripMenuItem,
+            this.fileToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Size = new System.Drawing.Size(681, 24);
@@ -104,8 +108,9 @@ namespace MM_GENIVI_EA_Document_Generation_System
             // manualToolStripMenuItem
             // 
             this.manualToolStripMenuItem.Name = "manualToolStripMenuItem";
-            this.manualToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+            this.manualToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.manualToolStripMenuItem.Text = "Manual";
+            this.manualToolStripMenuItem.Click += new System.EventHandler(this.manualToolStripMenuItem_Click);
             // 
             // statusStrip
             // 
@@ -128,6 +133,29 @@ namespace MM_GENIVI_EA_Document_Generation_System
             // 
             this.genProgress.Name = "genProgress";
             this.genProgress.Size = new System.Drawing.Size(501, 16);
+            // 
+            // fileToolStripMenuItem
+            // 
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.saveProjectFileToolStripMenuItem,
+            this.loadProjectFileToolStripMenuItem});
+            this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
+            this.fileToolStripMenuItem.Text = "File";
+            // 
+            // saveProjectFileToolStripMenuItem
+            // 
+            this.saveProjectFileToolStripMenuItem.Name = "saveProjectFileToolStripMenuItem";
+            this.saveProjectFileToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.saveProjectFileToolStripMenuItem.Text = "Save project file";
+            this.saveProjectFileToolStripMenuItem.Click += new System.EventHandler(this.saveProjectFileToolStripMenuItem_Click);
+            // 
+            // loadProjectFileToolStripMenuItem
+            // 
+            this.loadProjectFileToolStripMenuItem.Name = "loadProjectFileToolStripMenuItem";
+            this.loadProjectFileToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
+            this.loadProjectFileToolStripMenuItem.Text = "Load project file";
+            this.loadProjectFileToolStripMenuItem.Click += new System.EventHandler(this.loadProjectFileToolStripMenuItem_Click);
             // 
             // mmEAdgs_mainForm
             // 
@@ -163,6 +191,9 @@ namespace MM_GENIVI_EA_Document_Generation_System
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem manualToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveProjectFileToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem loadProjectFileToolStripMenuItem;
     }
 }
 
