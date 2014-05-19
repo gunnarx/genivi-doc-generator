@@ -10,7 +10,7 @@
  *
  * Software distributed under the License is distributed on an "AS IS" basis,
  * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
- * for the specific language governing rights and limitations under the licence
+ * for the specific language governing rights and limitations under the Licence.
  *
  * ***** END LICENSE BLOCK *****/
 using System;
