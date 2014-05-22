@@ -40,27 +40,33 @@ namespace MM_GENIVI_EA_Document_Generation_System
         // Data form instance
         public mmEAdgs_dataForm frm_instance;
 
+        // Form init - automatically generated
         public mmEAdgs_mainForm()
         {
             InitializeComponent();
         }
 
+        // Function used to reset the progress bar
         public void resetProgress()
         {
             genProgress.Value = 0;
         }
 
+        // Function that allows to set the minimum and maximum values of the progress bar
         public void setMaxMinProgress(int minv, int maxv)
         {
             genProgress.Maximum = maxv;
             genProgress.Minimum = minv;
         }
 
+        // Function that allows to update the progress bar by one step
         public void progProgess()
         {
             genProgress.Value = genProgress.Value + 1;
         }
 
+        // Function that perform the on the fly DLL load based on the given path
+        // the DLL instance reference will be loaded into a list, to be used later
         private Boolean loadDLL(String deafultPath)
         {
             
@@ -100,6 +106,7 @@ namespace MM_GENIVI_EA_Document_Generation_System
                 // Get the method
                 MethodInfo method = classType.GetMethod(functionName);
 
+                // create a new entry in the list with the acquired values
                 extractionFunctions_List.Add(new extractionFunctions
                 {
                     fileName = filename,
@@ -153,24 +160,28 @@ namespace MM_GENIVI_EA_Document_Generation_System
             this.splitContainer.Panel1.Controls.Add(frm_instance);
         }
 
+        // Function to show the about form
         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             About abx = new About();
             abx.Show();
         }
 
+        // Work in progress: function to save the current parameters for future retreival
         private void saveProjectFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // under development
             MessageBox.Show("Function under development", "Development in progress", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
+        // Work in progress: function to load saved parameters
         private void loadProjectFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // under development
             MessageBox.Show("Function under development", "Development in progress", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
         }
 
+        // Work in progress: function to show the chm manual
         private void manualToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // under development

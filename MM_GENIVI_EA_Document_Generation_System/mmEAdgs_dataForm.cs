@@ -44,19 +44,24 @@ namespace MM_GENIVI_EA_Document_Generation_System
         // Reference to the main form
         mmEAdgs_mainForm main = null;
 
+        // List of the DLL references, to be called during document scan
         private List<extractionFunctions> extractionFunctions_List;
 
+        // Form init function - automatically generated
         public mmEAdgs_dataForm()
         {
             InitializeComponent();
         }
 
+        // Function to load passed parameters into class private variables, used by the caller operation
+        // to fully initialize the form
         public void init(List<extractionFunctions> extractionFunctions, mmEAdgs_mainForm frm)
         {
             extractionFunctions_List = extractionFunctions;
             main = frm;
         }
 
+        // Function that instantiate a file chooser dialog to get the DOCX template file
         private void btnTemplate_Click(object sender, EventArgs e)
         {
             OpenFileDialog openFile = new OpenFileDialog();
@@ -66,10 +71,12 @@ namespace MM_GENIVI_EA_Document_Generation_System
             openFile.FilterIndex = 1;
             if (openFile.ShowDialog() == DialogResult.OK)
             {
+                // to-do: verify that the file is a DOCX
                 txtTemplate.Text = openFile.FileName.ToString();
             }
         }
 
+        // Function to set the output file via a file chooser
         private void btnOutput_Click(object sender, EventArgs e)
         {
             SaveFileDialog saveFile = new SaveFileDialog();
@@ -83,6 +90,7 @@ namespace MM_GENIVI_EA_Document_Generation_System
             }
         }
 
+        // Function to set the temporary directory via a directory chooser dialog
         private void btnImages_Click(object sender, EventArgs e)
         {
             FolderBrowserDialog imgDir = new FolderBrowserDialog();
@@ -352,9 +360,20 @@ namespace MM_GENIVI_EA_Document_Generation_System
             using (WordprocessingDocument myDoc = WordprocessingDocument.Open(output, true))
             {
                 MainDocumentPart mainPart = myDoc.MainDocumentPart;
+                
 
                 var sdtBlocks = mainPart.Document.Body.ChildElements.OfType<SdtBlock>();
                 iter = sdtBlocks.Count();
+                /*
+                 * TO DO: manage also header and footer - work in progress
+                foreach (HeaderPart header in mainPart.GetPartsOfType<HeaderPart>())
+                {
+                    var sdtBlocks2 = header.RootElement.Descendants<SdtBlock>();
+                    //Console.Write(sdtBlocks2.Count());
+                    iter += sdtBlocks2.Count();
+                }
+                 * */
+
             }
 
             // Reset the progress bar
