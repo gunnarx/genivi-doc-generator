@@ -38,7 +38,7 @@ namespace MM_GENIVI_EA_Document_Generation_System
     public partial class mmEAdgs_dataForm : UserControl
     {
         // Registry key to store data
-        private RegistryKey regBase = Registry.LocalMachine;
+        private RegistryKey regBase = Registry.CurrentUser;
         private String regProduct = "SOFTWARE\\" + Application.ProductName.ToString();
 
         // Reference to the main form
