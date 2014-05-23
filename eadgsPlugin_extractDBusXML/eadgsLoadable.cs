@@ -204,7 +204,14 @@ namespace eadgsPlugin_extractDBusXML
                             int idxMin = line.IndexOf('@');
                             String argName = line.Substring(idxMin + 1, idxMax - 1 - idxMin);
                             String argDoc = line.Substring(idxMax+1);
-                            argComments.Add(argName, argDoc);
+                            try
+                            {
+                                argComments.Add(argName, argDoc);
+                            }
+                            catch (Exception ex)
+                            {
+                                Console.WriteLine(ex.Data);
+                            }
                         }
                         else
                         {
