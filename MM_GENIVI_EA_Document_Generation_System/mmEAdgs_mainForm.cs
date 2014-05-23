@@ -25,6 +25,7 @@ using System.Windows.Forms;
 using System.Reflection;
 using Microsoft.Win32;
 using System.IO;
+using System.Xml;
 
 namespace MM_GENIVI_EA_Document_Generation_System
 {
@@ -170,15 +171,82 @@ namespace MM_GENIVI_EA_Document_Generation_System
         // Work in progress: function to save the current parameters for future retreival
         private void saveProjectFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // under development
-            MessageBox.Show("Function under development", "Development in progress", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            SaveFileDialog saveFile = new SaveFileDialog();
+            saveFile.InitialDirectory = "%USERPROFILE%";
+            saveFile.RestoreDirectory = true;
+            saveFile.Filter = "MM EA DGS project (.dgs)|*.dgs|All Files (*.*)|*.*";
+            saveFile.FilterIndex = 1;
+            if (saveFile.ShowDialog() == DialogResult.OK)
+            {
+                // Export project file
+                // openFile.FileName.ToString();
+                XmlWriterSettings settings = new XmlWriterSettings();
+                settings.Indent = true;
+                XmlWriter writer = XmlWriter.Create(saveFile.FileName.ToString(), settings);
+
+                writer.WriteStartDocument();
+
+                writer.WriteComment("MM EA DOCUMENT GENERATION SYSTEM SAVEFILE");
+
+                writer.WriteStartElement("Project");
+                // Data save
+                // Template DOCX
+                writer.WriteElementString("DOCXTEMPLATE", frm_instance.txtTemplate.Text);
+
+                // Outfile DOCX
+                writer.WriteElementString("DOCXOUTPUT", frm_instance.txtOutput.Text);
+
+                // Images
+                writer.WriteElementString("IMAGES", frm_instance.txtImages.Text);
+
+                // EAP
+                writer.WriteElementString("EAP", frm_instance.txtEAP.Text);
+
+                // DLL
+                writer.WriteElementString("DLL", frm_instance.txtDllDir.Text);
+
+                writer.WriteEndElement();
+                writer.WriteEndDocument();
+                writer.Flush();
+                writer.Close();
+
+            }
         }
 
         // Work in progress: function to load saved parameters
         private void loadProjectFileToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            // under development
-            MessageBox.Show("Function under development", "Development in progress", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
+            OpenFileDialog openFile = new OpenFileDialog();
+            openFile.InitialDirectory = "%USERPROFILE%";
+            openFile.RestoreDirectory = true;
+            openFile.Filter = "MM EA DGS project (.dgs)|*.dgs|All Files (*.*)|*.*";
+            openFile.FilterIndex = 1;
+            if (openFile.ShowDialog() == DialogResult.OK)
+            {
+                XmlDocument xmlFile = new XmlDocument();
+                try
+                {
+                    xmlFile.Load(openFile.FileName.ToString());
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+                XmlNodeList trans = xmlFile.GetElementsByTagName("Project");
+                // load data
+
+                foreach (XmlNode node in trans)
+                {
+
+                    frm_instance.txtTemplate.Text = node["DOCXTEMPLATE"].InnerText.ToString();
+                    frm_instance.txtOutput.Text = node["DOCXOUTPUT"].InnerText.ToString();
+                    frm_instance.txtImages.Text = node["IMAGES"].InnerText.ToString();
+                    frm_instance.txtEAP.Text = node["EAP"].InnerText.ToString();
+                    frm_instance.txtDllDir.Text = node["DLL"].InnerText.ToString();
+                }
+                // update the registry
+                frm_instance.updateRegistry();
+            }
         }
 
         // Work in progress: function to show the chm manual

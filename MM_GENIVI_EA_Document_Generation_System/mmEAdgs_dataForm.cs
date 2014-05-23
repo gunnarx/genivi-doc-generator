@@ -324,6 +324,15 @@ namespace MM_GENIVI_EA_Document_Generation_System
             return true;
         }
 
+        public void updateRegistry()
+        {
+            this.txtDllDir_TextChanged(null, null);
+            this.txtEAP_TextChanged(null, null);
+            this.txtImages_TextChanged(null, null);
+            this.txtOutput_TextChanged(null, null);
+            this.txtTemplate_TextChanged(null, null);
+        }
+
         private void btnGen_Click(object sender, EventArgs e)
         {
             // To do - check params

@@ -1,21 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 2012 for Windows Desktop
-#/* ***** BEGIN LICENSE BLOCK *****
-# * Author: Guido Pennella
-# * Copyright ©2013, Magneti Marelli S.p.A. All rights reserved
-# * Version: MPL 2.0
-# *
-# * The contents of this file are subject to the Mozilla Public License Version
-# * 2.0 (the "License"); you may not use this file except in compliance with
-# * the License. You may obtain a copy of the License at
-# * http://www.mozilla.org/MPL/
-# *
-# * Software distributed under the License is distributed on an "AS IS" basis,
-# * WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License
-# * for the specific language governing rights and limitations under the
-# *
-#/* ***** END LICENSE BLOCK *****
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MM_GENIVI_EA_Document_Generation_System", "MM_GENIVI_EA_Document_Generation_System\MM_GENIVI_EA_Document_Generation_System.csproj", "{DC82175A-3322-4455-A310-F35E5458956F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eadgsPlugin_extractImageByName", "eadgsPlugin_extractImageByName\eadgsPlugin_extractImageByName.csproj", "{EB77D7EB-6DCC-4BBC-8ADA-DEFFDD62C46E}"
@@ -30,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eadgsPlugin_extractReqList"
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eadgsPlugin_extractDBusXML", "eadgsPlugin_extractDBusXML\eadgsPlugin_extractDBusXML.csproj", "{06BFD033-92D2-4672-8DDD-FF9B9AC0FF3E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "eadgsPlugin_extractUseCase", "eadgsPlugin_extractUseCase\eadgsPlugin_extractUseCase.csproj", "{37C5D5EE-05ED-4BE0-9315-42592630328C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -61,6 +48,10 @@ Global
 		{06BFD033-92D2-4672-8DDD-FF9B9AC0FF3E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{06BFD033-92D2-4672-8DDD-FF9B9AC0FF3E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{06BFD033-92D2-4672-8DDD-FF9B9AC0FF3E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37C5D5EE-05ED-4BE0-9315-42592630328C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37C5D5EE-05ED-4BE0-9315-42592630328C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37C5D5EE-05ED-4BE0-9315-42592630328C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37C5D5EE-05ED-4BE0-9315-42592630328C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
