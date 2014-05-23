@@ -55,7 +55,16 @@ namespace eadgsPlugin_Utilies
         public static String acquirePackageID(int index, String[] pkg_tree, String ret, OdbcConnection eapConnection)
         {
             // Seek the PkgID for the current pointed package
-            String sql = "select Package_ID from t_package where Name ='" + pkg_tree[index] + "' and Parent_ID = " + ret;
+            String sql = "";
+
+            if (index == 0)
+            {
+                sql = "select Package_ID from t_package where Name ='" + pkg_tree[index] + "'";
+            }
+            else
+            {
+                sql = "select Package_ID from t_package where Name ='" + pkg_tree[index] + "' and Parent_ID = " + ret;
+            }
 
             OdbcCommand eapCommand = eapConnection.CreateCommand();
             eapCommand.CommandText = sql;
