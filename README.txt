@@ -23,6 +23,11 @@ Version 1.0 Features
 	- A plug-in to generate document out of DBUS XML	
 
 For a comprehensive introduction, see the presentation in the MANUAL directory	
+
+Installation pre-requisite:
+	* Microsoft .NET 4.5 Framework (http://www.microsoft.com/it-it/download/details.aspx?id=30653)
+	* Microsoft OpenXML SDK 2.5 (http://msdn.microsoft.com/en-us/library/office/bb448854(v=office.15).aspx)
+
 ________________________________________________________________
 Version 1.0 to-do
 	The following features are scheduled for a future release

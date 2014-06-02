@@ -46,8 +46,6 @@ ShowUnInstDetails show
 Section "SezionePrincipale" SEC01
   SetOutPath "$INSTDIR"
   SetOverwrite try
-  File "MM_GENIVI_EA_Document_Generation_System\bin\Debug\DocumentFormat.OpenXml.dll"
-  File "MM_GENIVI_EA_Document_Generation_System\bin\Debug\DocumentFormat.OpenXml.xml"
   File "MM_GENIVI_EA_Document_Generation_System\bin\Debug\eadgsPlugin_extractDBusXML.dll"
   File "MM_GENIVI_EA_Document_Generation_System\bin\Debug\eadgsPlugin_extractDBusXML.pdb"
   File "MM_GENIVI_EA_Document_Generation_System\bin\Debug\eadgsPlugin_extractImageByName.dll"
@@ -112,9 +110,6 @@ Section Uninstall
   Delete "$INSTDIR\eadgsPlugin_extractImageByName.dll"
   Delete "$INSTDIR\eadgsPlugin_extractDBusXML.pdb"
   Delete "$INSTDIR\eadgsPlugin_extractDBusXML.dll"
-  Delete "$INSTDIR\DocumentFormat.OpenXml.xml"
-  Delete "$INSTDIR\DocumentFormat.OpenXml.dll"
-
   Delete "$SMPROGRAMS\MM EA Document Generation System\Uninstall.lnk"
   Delete "$DESKTOP\Magneti Marelli Enterprise Architect Document Generation System.lnk"
   Delete "$SMPROGRAMS\MM EA Document Generation System\Magneti Marelli Enterprise Architect Document Generation System.lnk"
