@@ -90,6 +90,10 @@ namespace eadgsPlugin_extractSingleReq
             System.IO.StreamWriter file = new System.IO.StreamWriter(filename);
             file.Write(output_to_html);
             file.Close();
+
+            // close the db connection
+            eapConnection.Close();
+
             return true;
         }
     }
