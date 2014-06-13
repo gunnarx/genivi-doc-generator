@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "Magneti Marelli Enterprise Architect Document Generation System"
-!define PRODUCT_VERSION "1.0"
+!define PRODUCT_VERSION "1.0b"
 !define PRODUCT_PUBLISHER "Guido Pennella - Magneti Marelli SPA"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\MM_GENIVI_EA_Document_Generation_System.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
@@ -54,6 +54,8 @@ Section "SezionePrincipale" SEC01
   File "MM_GENIVI_EA_Document_Generation_System\bin\Debug\eadgsPlugin_extractReqList.pdb"
   File "MM_GENIVI_EA_Document_Generation_System\bin\Debug\eadgsPlugin_extractSingleReq.dll"
   File "MM_GENIVI_EA_Document_Generation_System\bin\Debug\eadgsPlugin_extractSingleReq.pdb"
+  File "MM_GENIVI_EA_Document_Generation_System\bin\Debug\eadgsPlugin_extractUseCase.dll"
+  File "MM_GENIVI_EA_Document_Generation_System\bin\Debug\eadgsPlugin_extractUseCase.pdb"
   File "MM_GENIVI_EA_Document_Generation_System\bin\Debug\eadgsPlugin_Utilies.dll"
   File "MM_GENIVI_EA_Document_Generation_System\bin\Debug\eadgsPlugin_Utilies.pdb"
   File "MM_GENIVI_EA_Document_Generation_System\bin\Debug\MM_GENIVI_EA_Document_Generation_System.exe"
@@ -110,6 +112,8 @@ Section Uninstall
   Delete "$INSTDIR\eadgsPlugin_extractImageByName.dll"
   Delete "$INSTDIR\eadgsPlugin_extractDBusXML.pdb"
   Delete "$INSTDIR\eadgsPlugin_extractDBusXML.dll"
+  Delete "$INSTDIR\eadgsPlugin_extractUseCase.dll"
+  Delete "$INSTDIR\eadgsPlugin_extractUseCase.pdb"
   Delete "$SMPROGRAMS\MM EA Document Generation System\Uninstall.lnk"
   Delete "$DESKTOP\Magneti Marelli Enterprise Architect Document Generation System.lnk"
   Delete "$SMPROGRAMS\MM EA Document Generation System\Magneti Marelli Enterprise Architect Document Generation System.lnk"
