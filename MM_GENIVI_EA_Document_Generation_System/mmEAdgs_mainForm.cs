@@ -157,6 +157,9 @@ namespace MM_GENIVI_EA_Document_Generation_System
             frm_instance = new mmEAdgs_dataForm();
             frm_instance.init(extractionFunctions_List, this);
             this.splitContainer.Panel1.Controls.Add(frm_instance);
+
+            // set the version visible
+            this.Text = "Magneti Marelli - GENIVI - EA Document Generation System - 1.0c";
         }
 
         // Function to show the about form
