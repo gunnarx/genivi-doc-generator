@@ -18,7 +18,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Data.Odbc;
 using EA;
-using Word = Microsoft.Office.Interop.Word;
+//using Word = Microsoft.Office.Interop.Word;
+using System.IO;
+using DocumentFormat.OpenXml;
+using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
+using A = DocumentFormat.OpenXml.Drawing;
+using DW = DocumentFormat.OpenXml.Drawing.Wordprocessing;
+using PIC = DocumentFormat.OpenXml.Drawing.Pictures;
 
 namespace eadgsPlugin_extractImageByName
 {
@@ -26,6 +33,112 @@ namespace eadgsPlugin_extractImageByName
     {
         private String connectionString = "";
         private OdbcConnection eapConnection = null;
+
+        public static void InsertAPicture(String document, String fileName, String CaptionType, String Caption)
+        {
+            using (WordprocessingDocument wordprocessingDocument =
+                WordprocessingDocument.Open(document,true))
+            {
+                MainDocumentPart mainPart = wordprocessingDocument.MainDocumentPart;
+
+                ImagePart imagePart = mainPart.AddImagePart(ImagePartType.Png);
+
+                using (FileStream stream = new FileStream(fileName, FileMode.Open))
+                {
+                    imagePart.FeedData(stream);
+                }
+
+                AddImageToBody(wordprocessingDocument, mainPart.GetIdOfPart(imagePart), CaptionType, Caption);
+                
+                wordprocessingDocument.Close();
+            }
+        }
+
+        private static void AddImageToBody(WordprocessingDocument wordDoc, string relationshipId, String CaptionType, String Caption)
+        {
+            int cx, cy;
+            cx = 22;
+            cy = cx/5*4;
+            // Define the reference of the image.
+            var element =
+                 new Drawing(
+                     new DW.Inline(
+                         new DW.Extent() { Cx = cx * 261257L, Cy = cy * 261257L },
+                         new DW.EffectExtent()
+                         {
+                             LeftEdge = 0L,
+                             TopEdge = 0L,
+                             RightEdge = 0L,
+                             BottomEdge = 0L
+                         },
+                         new DW.DocProperties()
+                         {
+                             Id = (UInt32Value)1U,
+                             Name = "Picture 1"
+                         },
+                         new DW.NonVisualGraphicFrameDrawingProperties(
+                             new A.GraphicFrameLocks() { NoChangeAspect = true }),
+                         new A.Graphic(
+                             new A.GraphicData(
+                                 new PIC.Picture(
+                                     new PIC.NonVisualPictureProperties(
+                                         new PIC.NonVisualDrawingProperties()
+                                         {
+                                             Id = (UInt32Value)0U,
+                                             Name = "New Bitmap Image.png"
+                                         },
+                                         new PIC.NonVisualPictureDrawingProperties()),
+                                     new PIC.BlipFill(
+                                         new A.Blip(
+                                             new A.BlipExtensionList(
+                                                 new A.BlipExtension()
+                                                 {
+                                                     Uri =
+                                                       "{28A0092B-C50C-407E-A947-70E740481C1C}"
+                                                 })
+                                         )
+                                         {
+                                             Embed = relationshipId,
+                                             CompressionState =
+                                             A.BlipCompressionValues.Print
+                                         },
+                                         new A.Stretch(
+                                             new A.FillRectangle())),
+                                     new PIC.ShapeProperties(
+                                         new A.Transform2D(
+                                             new A.Offset() { X = 0L, Y = 0L },
+                                             new A.Extents() { Cx = cx * 261257L, Cy = cy * 261257L }),
+                                         new A.PresetGeometry(
+                                             new A.AdjustValueList()
+                                         ) { Preset = A.ShapeTypeValues.Rectangle }))
+                             ) { Uri = "http://schemas.openxmlformats.org/drawingml/2006/picture" })
+                     )
+                     {
+                         DistanceFromTop = (UInt32Value)0U,
+                         DistanceFromBottom = (UInt32Value)0U,
+                         DistanceFromLeft = (UInt32Value)0U,
+                         DistanceFromRight = (UInt32Value)0U,
+                         EditId = "50D07946"
+                     });
+
+           
+            SimpleField cap = new SimpleField();
+            Paragraph par = new Paragraph();
+            
+            par.ParagraphProperties = new ParagraphProperties(new ParagraphStyleId() { Val = "Caption" });
+            par.AppendChild(new Run(new Text(CaptionType + " ")));
+            par.AppendChild(cap);
+            par.AppendChild(new Run(new Text(": "+ Caption)));
+
+            cap.Instruction = @" SEQ Figure \* ARABIC ";
+            
+            
+            wordDoc.MainDocumentPart.Document.Body.AppendChild(new Paragraph(new Run(element)));
+
+            wordDoc.MainDocumentPart.Document.Body.AppendChild(par);
+           
+            
+        }
 
         public Boolean extractImageByName(String prm)
         {
@@ -42,7 +155,6 @@ namespace eadgsPlugin_extractImageByName
             String caption = "";
 
             connectionString = @"Driver={Microsoft Access Driver (*.mdb)};Dbq="+eapFile+";Uid=Admin;Pwd=";
-            //connectionString = @"Driver={Microsoft Access Driver (*.mdb)};" + "Dbq=D:\\EA10Prjs\\Alibi_process.eap;Uid=Admin;Pwd=";
 
             eapConnection = new OdbcConnection();
             eapConnection.ConnectionString = connectionString;
@@ -84,56 +196,13 @@ namespace eadgsPlugin_extractImageByName
             Project eapPrj = new Project();
             eapPrj = eapRep.GetProjectInterface();
             eapPrj.PutDiagramImageToFile(ea_guid, auxdir + "\\" + pngFile + ".png", 1);
-
-            // Build the DOCX file
-            // Prepare WORD interoperability to generate the WORD files for the images
-            object missing = Type.Missing;
-            object notTrue = false;
-
-            Word.Application oWord = null;
-            Word.Documents oDocs = null;
-            Word.Document oDoc = null;
-            Word.Range range = null;
-
-            object fileName = null;
-            object fileFormat = Word.WdSaveFormat.wdFormatXMLDocument;
-
-            String file = auxdir + "\\" + pngFile + ".docx";
-
-            // Generate a new word file
-            oWord = new Word.Application();
-            oWord.Visible = false;
-
-
-            // Create a new Document and add it to document collection.                
-            oDoc = oWord.Documents.Add(ref missing, ref missing, ref missing, ref missing);
-            // Add the image
-            oDoc.InlineShapes.AddPicture(auxdir + "\\" + pngFile + ".png");
-            range = oDoc.Range();
-
-            range.InsertCaption("Figure", ": " + caption);
-
-            // Save the word document created
-
-            fileName = auxdir + "\\" + pngFile + ".docx";
-
-            oDoc.SaveAs(ref fileName, ref fileFormat, ref missing,
-              ref missing, ref missing, ref missing, ref missing,
-              ref missing, ref missing, ref missing, ref missing,
-              ref missing, ref missing, ref missing, ref missing,
-              ref missing);
-            ((Word._Document)oDoc).Close(ref missing, ref missing,
-                ref missing);
-
-            ((Word._Application)oWord).Quit(ref notTrue, ref missing,
-               ref missing);
-
-            // Clear environment
-            oWord = null;
-            oDocs = null;
-            oDoc = null;
-
             eapConnection.Close();
+
+            String docxFile = auxdir + "\\" + pngFile + ".docx";
+            String imageFile = auxdir + "\\" + pngFile + ".png";
+
+            InsertAPicture(docxFile, imageFile, "Figure", caption);
+
             return true;
         }
     }

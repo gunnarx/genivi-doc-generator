@@ -465,11 +465,11 @@ namespace MM_GENIVI_EA_Document_Generation_System
             
             //String parameter = "FUNZIONE2|D:\\users\\F57165A\\Downloads\\NavigationCore-api-genivi-navigationcore-locationinput.xml|1|0|D:\\EA10Prjs\\Alibi_process.eap|D:\\Temp";
             //String parameter = "FUNZIONE2|D:\\users\\F57165A\\Downloads\\node-startup-controller-node-startup-controller-dbus.xml|1|0|D:\\EA10Prjs\\Alibi_process.eap|D:\\Temp";
-            //String parameter = "FUNZIONE3|D:\\users\\F57165A\\Downloads\\NodeStateAccess-model-org.genivi.NodeStateManager.LifecycleConsumer.xml|1|0|D:\\EA10Prjs\\Alibi_process.eap|D:\\Temp";
+            String parameter = "FUNZIONE3|D:\\users\\F57165A\\Downloads\\NodeStateAccess-model-org.genivi.NodeStateManager.LifecycleConsumer.xml|1|0|D:\\EA10Prjs\\Alibi_process.eap|D:\\Temp";
             
-            //int idx = findFunctionIndex("extractDBusXML");
+            int idx = findFunctionIndex("extractImageByName");
 
-            //object result = extractionFunctions_List[idx].dllMethod.Invoke(extractionFunctions_List[idx].dllInstance, new object[] { parameter });
+            object result = extractionFunctions_List[idx].dllMethod.Invoke(extractionFunctions_List[idx].dllInstance, new object[] { parameter });
 
         }
 
