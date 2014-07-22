@@ -1,0 +1,380 @@
+#LyX 2.1 created this file. For more info see http://www.lyx.org/
+\lyxformat 474
+\begin_document
+\begin_header
+\textclass article
+\use_default_options true
+\maintain_unincluded_children false
+\language english
+\language_package default
+\inputencoding auto
+\fontencoding global
+\font_roman default
+\font_sans default
+\font_typewriter default
+\font_math auto
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100
+\font_tt_scale 100
+\graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
+\paperfontsize default
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 1
+\use_package mathdots 1
+\use_package mathtools 1
+\use_package mhchem 1
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
+\paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 1
+\index Index
+\shortcut idx
+\color #008000
+\end_index
+\secnumdepth 3
+\tocdepth 3
+\paragraph_separation indent
+\paragraph_indentation default
+\quotes_language english
+\papercolumns 1
+\papersides 1
+\paperpagestyle default
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
+
+\begin_body
+
+\begin_layout Title
+Magneti Marelli Enterprise Architect Document Generation System
+\end_layout
+
+\begin_layout Author
+Guido Pennella - Senior System/Software Architect 
+\end_layout
+
+\begin_layout Standard
+\align center
+
+\shape italic
+Magneti Marelli SpA 
+\end_layout
+
+\begin_layout Address
+\align center
+
+\shape italic
+guido.pennella@magnetimarelli.com
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Section
+Introduction
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing onehalf
+Magneti Marelli Enterprise Architect Document Generation System is a Windows
+ based application that can generate MS-WORD 2007 or later documents out
+ of Enterprise Architect 8.x or later (or potentially other sources) with
+ DOCX based templates.
+ Is based on a plug-in architecture, that allows to be extended at will.
+ The software per se is build in C#, using Visual Studio© 2012 Express edition
+ (i.e.: the free version of Visual Studio) and use freely redistributable
+ XML SDK DLL from Microsoft© to build the documents.
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing onehalf
+The core generation function is based on altChunk feature of the Open XML
+ SDK from Microsoft©.
+ This feature allows to easy merge into a base document (hereafter referred
+ as the template) other documents, mantaining the styles of the template.
+ This is a key point in the document generation, as the document to be inserted
+ can have different styles implementations with respect to the template
+ (e.g.: NORMAL can be Arial in the template and Times New Roman in the document
+ to merge), but in the resulting document will be Arial, as into the template.
+ A number of tutorials on this feature can be found in internet.
+ The one inspiring the work done for this project can be found at the following
+ URL: 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://blogs.msdn.com/b/ericwhite/archive/2008/10/27/how-to-use-altchunk-for-document-assembly.aspx"
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Subsection
+Developer Tab
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing onehalf
+In order to insert an altChunk inside a DOCX, the user shall activate the
+ DEVELOPER feature in the Ribbon of MS-OFFICE 2007© (or later).
+ By default, the developer tab is not enabled on the Ribbon, so the first
+ step is to enable it.
+ In order to do so, the user shall access FILE->OPTIONS dialog
+\begin_inset Newline newline
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+\paragraph_spacing onehalf
+\begin_inset Graphics
+	filename options_dialog.png
+	scale 50
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+In the left part, where there is the list of MAIN TABS click on the DEVELOPER
+ checkbox.
+ This will activate the Developer fearture in the Ribbon.
+ Once the DEVELOPER feature is activated, the use can insert into the template
+ document the altChunk via RICH TEXT CONTENT CONTROL, which is the one in
+ evidence in the following figure.
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename ribbon_developer.png
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+The document generation is done on the basis of the content and of the propertie
+s of the control itself.
+ The properties, accessible via a classic right click or via the Ribbon,
+ foreseen a TITLE and a TAG that shall be set at the same value.
+ See hereafter for the various properties and content that activates the
+ plugins provided with the Software.
+ 
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Graphics
+	filename properties_dialog.png
+	scale 50
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+Document Generation workflow
+\end_layout
+
+\begin_layout Standard
+The Document Generation System de facto will do the following steps once
+ activated:
+\end_layout
+
+\begin_layout Enumerate
+Scan the Template document to identify the number of altChunks present
+\end_layout
+
+\begin_layout Enumerate
+For each altChunk
+\end_layout
+
+\begin_deeper
+\begin_layout Enumerate
+Identify the type 
+\end_layout
+
+\begin_layout Enumerate
+call the proper DLL (if necessary) or activate a build in generation, in
+ order to generate an intermediate file in a temporary directory.
+ Note that to the DLL will be passed the content of the control as a parameter
+ set, together with a set of based parameters.
+\end_layout
+
+\begin_layout Enumerate
+Take the intermediate file and inject it into the Template
+\end_layout
+
+\end_deeper
+\begin_layout Standard
+Thus, on the basis of the above description, is quite clear that we need
+ at least to define
+\end_layout
+
+\begin_layout Enumerate
+A temporary directory to store the intermediate generation files
+\end_layout
+
+\begin_layout Enumerate
+The Template DOCX file, that contains the atlChunks
+\end_layout
+
+\begin_layout Section
+Installing the system
+\end_layout
+
+\begin_layout Standard
+In order to be installed, the system needs a PC with the following Software
+ installed:
+\end_layout
+
+\begin_layout Itemize
+Operating System: Windows7 or later 
+\end_layout
+
+\begin_layout Itemize
+.NET Framework 4.5, that can be obtained from Microsoft at 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://www.microsoft.com/it-it/download/details.aspx?id=30653"
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Itemize
+Microsoft Word 2007 or later
+\end_layout
+
+\begin_layout Itemize
+Enterprise Architect 8.x or later
+\end_layout
+
+\begin_layout Itemize
+Microsoft OpenXML SDK 2.5, that can be obtained from Microsoft at 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://msdn.microsoft.com/en-us/library/office/bb448854(v=office.15).aspx"
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Standard
+Note that there are no real needs in terms of RAM and HARD DISK size, as
+ the system is quite lightweight.
+ Entry level PC with Windows7 will be able to run the software without problems.
+ Moreover note that the system can generate documents out of many sources
+ (XML files, but also a generic XMI coming from another tool or a generic
+ database), so Enterprise Architect is listed here only for some ready made
+ plugins.
+\end_layout
+
+\begin_layout Subsection
+Installing via the SETUP.EXE 
+\end_layout
+
+\begin_layout Standard
+The sources of the system are provided with a Nullsoft Scriptable Install
+ System (NSIS - 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://nsis.sourceforge.net/Main_Page"
+
+\end_inset
+
+) script (The script per se has been generated and managed via HM NIS EDIT
+ - 
+\begin_inset CommandInset href
+LatexCommand href
+target "http://hmne.sourceforge.net"
+
+\end_inset
+
+ ), so in the root directory of the GIT repository it will be possible to
+ find a SETUP.EXE file, generated from this script, that contains the latest
+ and greatest compiled code, with the automated installation and disinstallation
+ via the nice Graphical User Interface provided by NSIS.
+ Thus non developer users can easy download the SETUP.EXE file and install
+ the SW on their PC without the need to manage the full development environment.
+ Basically, the installation just need to close all not needed applications,
+ agree with the OSS Licence (MPL 2.0), choose an installation directory and
+ then, once the files have been unpacked, run the Software.
+\end_layout
+
+\begin_layout Subsection
+Installing from the sources
+\end_layout
+
+\begin_layout Standard
+For this kind of installation, see the dedicated chapter, as it has additional
+ pre-requisites.
+\end_layout
+
+\begin_layout Section
+Running the Software
+\end_layout
+
+\begin_layout Standard
+\begin_inset Graphics
+	filename software_main_window.png
+	scale 75
+
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+
+\begin_inset Newline newline
+\end_inset
+
+In the
+\end_layout
+
+\begin_layout Section
+Generation elements into the template
+\end_layout
+
+\begin_layout Section
+Developing your own plugins
+\end_layout
+
+\end_body
+\end_document
