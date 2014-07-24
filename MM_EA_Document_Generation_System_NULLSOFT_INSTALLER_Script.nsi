@@ -2,7 +2,7 @@
 
 ; HM NIS Edit Wizard helper defines
 !define PRODUCT_NAME "Magneti Marelli Enterprise Architect Document Generation System"
-!define PRODUCT_VERSION "1.0d"
+!define PRODUCT_VERSION "1.1"
 !define PRODUCT_PUBLISHER "Guido Pennella - Magneti Marelli SPA"
 !define PRODUCT_DIR_REGKEY "Software\Microsoft\Windows\CurrentVersion\App Paths\MM_GENIVI_EA_Document_Generation_System.exe"
 !define PRODUCT_UNINST_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\${PRODUCT_NAME}"
